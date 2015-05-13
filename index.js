@@ -2,8 +2,6 @@
 var buttons = require('sdk/ui/button/action');
 var tabs = require("sdk/tabs");
 var { Toolbar } = require("sdk/ui/toolbar");
-//var { ToggleButton } = require("sdk/ui/button/toggle");
-//var { Toolbar } = require("sdk/ui/toolbar");
 var { Frame } = require("sdk/ui/frame");
 var self = require("sdk/self");
 var windows = require("sdk/windows").browserWindows;
@@ -13,6 +11,21 @@ var panel = require("sdk/panel").Panel({
   width: 600,
   height: 600
 });
+
+var plist = {"list":[{"name":"Biophotonic Imaging","id":1},{"name":"Pigment Extraction","id":2}]};
+//get the list of pattern names and id from labpatterns.org, seve them to later send to the toolbarframe.
+var Request = require("sdk/request").Request;
+var listofpatterns = {};
+var poptions = Request({
+  url: "http://labpatterns.org/patternlist",
+  onComplete: function (response) {
+    console.log(response.json);
+    plist = response.json;//send pattern list to toolbar frame
+  //  console.log("plist "+plist['list']);
+  }
+});
+poptions.get();
+
 
 var selectedPattern = "No pattern selected";
 
@@ -66,8 +79,17 @@ var toolbar = Toolbar({
   items: [button, frame]
 });
 
+frame.on('load', function(){
+  console.log('yo');
+  console.log(frame.url);
+  frame.postMessage(plist, frame.url);
+});
+//console.log(frame.url);
+
 function handleClick(state) {
   tabs.open("http://labpatterns.org/");
 }
+
+
 
 
