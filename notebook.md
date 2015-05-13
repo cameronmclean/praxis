@@ -95,3 +95,64 @@ and when it sees the event it appends the text to a <h1 id='text'>
 
 back in the onMessage from the context click, we then message the panel.js as shown
 `panel.port.emit("payload", selectionText);`
+
+OK - also got the add-on talking to the frame. Bit of a PITA, but ended up doing this.
+Asynchronously, we grab the patternlist from labpatterns.org/patternlist at add-on load and store JSON.
+We define the frame that is to be added to the toolbar, and specificy in
+1) in frame (plain web toolbar.js) to listen for messages via window.addEventListener
+```
+window.addEventListener("message", loadplist, false);
+
+function loadplist(message) {
+	var items = message.data;
+ 	for (var i = 0; i < items['list'].length; i++){
+		$("#pattern-selector").append('<option value="'+items["list"][i]["id"]+'">'+items["list"][i]["name"]+'</option>');					
+	}
+}
+```
+then 
+(2) we specify later in the add-on that on event frame.on('load') (i.e frame is completely loaded),send the json of current design patterns to popoulate the dropdown
+```
+frame.on('load', function(){
+  frame.postMessage(plist, frame.url);
+}); 
+```
+we send messages (json) back from the frame 
+1) specify in the frame.js 
+```
+var patternSelector = window.document.getElementById("pattern-selector");
+patternSelector.addEventListener("change", patternChanged);
+
+function patternChanged() {
+  window.parent.postMessage(patternSelector.value, "*");
+}
+```
+
+and in the add-on.js to listen for messages
+2)
+```
+var frame = new Frame({
+  url: "./toolbar.html",
+  
+  // onMessage: (e) => {
+  //   selectedPattern["id"] = e.data; 
+  onMessage: function(e){
+    if (e.data === "null"){
+      selectedPattern['name'] = "No pattern selected";
+    }
+    selectedPattern['id'] = e.data;
+    for (var i = 0; i < plist['list'].length; i++){
+     // console.log("looping");
+      if (String(plist['list'][i]["id"]) === e.data){
+     //   console.log('match');
+        selectedPattern['name'] = plist['list'][i]['name'];
+        break;
+      }
+    }
+    console.log("pattern changed to "+selectedPattern['id']+" "+selectedPattern['name']);
+  } 
+});
+```
+
+Used some jQuery to detect keyup in toolbar frame orcid text input. if length of input = 19, we send the value back to add-on(index).js to send through to panel, keep track etc...
+ 
