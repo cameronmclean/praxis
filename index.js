@@ -1,15 +1,3 @@
-// var self = require('sdk/self');
-
-// // a dummy function, to show how tests work.
-// // to see how to test this function, look at test/test-index.js
-// function dummy(text, callback) {
-//   callback(text);
-// }
-
-// exports.dummy = dummy;
-
-
-//testing - trying to make the button load a toolbar - this will hold the pattern things..
 
 var buttons = require('sdk/ui/button/action');
 var tabs = require("sdk/tabs");
@@ -20,12 +8,13 @@ var { Frame } = require("sdk/ui/frame");
 var self = require("sdk/self");
 var windows = require("sdk/windows").browserWindows;
 var panel = require("sdk/panel").Panel({
-  contentURL: require("sdk/self").data.url("myFile.html"),
-  contentScript: "self.port.on('payload', function(payload){"+
-     " alert(payload['anno'])});"
+  contentURL: require("sdk/self").data.url("panel.html"),
+  contentScriptFile: [self.data.url("jquery-1.11.3.min.js"), self.data.url("panel.js")],
+  width: 600,
+  height: 600
 });
 
-var annotationpayload = {};
+var selectedPattern = "No pattern selected";
 
 var contextMenu = require("sdk/context-menu");
 
@@ -44,12 +33,12 @@ var contextMenu = require("sdk/context-menu");
   onMessage: function (selectionText) {
     var activeWindowTitle = windows.activeWindow.title;
     selectionText["title"] = activeWindowTitle;
-    //console.log(activeWindowTitle + selectionText);
     panel.show();
     console.log(selectionText["where"]);
     console.log(selectionText["anno"]);
     console.log(selectionText["title"]);
     panel.port.emit("payload", selectionText);
+    panel.port.emit("pselected", selectedPattern);
   }
 });
 
@@ -57,15 +46,19 @@ var button = buttons.ActionButton({
   id: "Labpatterns-link",
   label: "Visit Labpatterns.org",
   icon: {
-    "16": "./desktop-icon-16.png",
-    "32": "./desktop-icon-32.png",
-    "64": "./desktop-icon-48.png"
+   // "16": "./desktop-icon-16.png",
+   // "32": "./home-icon32.png",
+    "48": "./home-icon48.png"
   },
   onClick: handleClick
 });
 
 var frame = new Frame({
-  url: "./frame-praxis.html"
+  url: "./toolbar.html",
+  onMessage: (e) => {
+    selectedPattern = e.data;
+    console.log("pattern changed to "+e.data);
+  }
 });
 
 var toolbar = Toolbar({

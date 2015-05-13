@@ -57,3 +57,41 @@ also - do I need to add labels to my JSON-LD to make them SPARQL friendly?
 
 current status with the addon anyhoo is that we grab the context, pass it async style to a panel wich for now is just an alert. need to package a proper contentScriptFile for the panel with HTML/CSS/jQuery to make it look pretty, allow the user to add details and send it back as JSON to the app.
 The app can then presumably do the final wrangling and POSTing to abritary endpoints. 
+
+#####201050513
+
+Got message from context click passed to panel via the following
+
+```
+onMessage: function (selectionText) {
+    var activeWindowTitle = windows.activeWindow.title;
+    selectionText["title"] = activeWindowTitle;
+    panel.show();
+    console.log(selectionText["where"]);
+    console.log(selectionText["anno"]);
+    console.log(selectionText["title"]);
+    panel.port.emit("payload", selectionText);
+  }
+```
+
+we grab the selection and a few other page details, call panel.show() where our panel is previously described thusly
+```
+var panel = require("sdk/panel").Panel({
+  contentURL: require("sdk/self").data.url("panel.html"),
+  contentScriptFile: [self.data.url("jquery-1.11.3.min.js"), self.data.url("panel.js")]
+});
+```
+(we have the html for the panel, and load jQuery and content scripts in that order to intereact with the panel)
+the panel.js listens for an event called 'payload'
+
+panel.js
+```
+self.port.on('payload', function(payload){
+  //alert(payload['anno'])
+  $('#text').append(payload["anno"]);
+});
+```
+and when it sees the event it appends the text to a <h1 id='text'>
+
+back in the onMessage from the context click, we then message the panel.js as shown
+`panel.port.emit("payload", selectionText);`
