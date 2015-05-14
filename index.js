@@ -63,7 +63,7 @@ var contextMenu = require("sdk/context-menu");
       onComplete: function(response, callback){
         finfo = response.json['force'];
         panel.port.emit("forces", finfo);
-        console.log(finfo);
+        //console.log(finfo);
         }
     });
 

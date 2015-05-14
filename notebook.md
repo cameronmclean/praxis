@@ -183,3 +183,10 @@ self.port.on('forces', function(forces){
 NEXT - to actually grab all the forces and show them nicely.
 and in a way that can be selected for inclusion in the annotation graph.
 
+fortunately, because of my awesomness, the pattern info we get when populating the panel after an annotate context click is great.
+I can use the force info directly to fetch <img> etc.
+Used jQuery to dynamically populate the panel, placing images and checkboxes for each force.
+note : need to clear the container div with and empty .html("") before iterating through forces, as forces are appened, and otherwise never removed from the force container 
+<div>
+ 
+
