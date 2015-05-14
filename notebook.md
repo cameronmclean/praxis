@@ -188,5 +188,10 @@ I can use the force info directly to fetch <img> etc.
 Used jQuery to dynamically populate the panel, placing images and checkboxes for each force.
 note : need to clear the container div with and empty .html("") before iterating through forces, as forces are appened, and otherwise never removed from the force container 
 <div>
- 
 
+ah. so now I cant get the pattern selection to populate the toolbar dropdown. I'm guessing because the get request is async, and not finishing in time before the frame.on('load')... FIXED for now by placing the frame.postMessage in the callback (onComplete) of the get pattern request. 
+
+Hit by more crazy async gotchas.
+Moved the declaration of the toolbar frame to after the get pattern list from labpatterns.org has completed. 
+then once frame has loaded, postMessage with the pattern list.
+Seems to work everytime now.... but we'll see.....

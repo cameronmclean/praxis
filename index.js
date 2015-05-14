@@ -22,7 +22,17 @@ var poptions = Request({
   url: "http://labpatterns.org/patternlist",
   onComplete: function (response) {
     //console.log(response.json);
+    var toolbar = Toolbar({
+  title: "Praxis",
+  items: [button, frame]
+  });
     plist = response.json;//save to plist, later to send to toolbar frame.on('load')
+    // console.log(plist);
+    // frame.postMessage(plist, frame.url);
+    frame.on('load', function(){
+      console.log(plist);
+      frame.postMessage(plist, frame.url);
+    });
   }
 });
 
@@ -63,7 +73,7 @@ var contextMenu = require("sdk/context-menu");
       onComplete: function(response, callback){
         finfo = response.json['force'];
         panel.port.emit("forces", finfo);
-        //console.log(finfo);
+       // console.log(finfo);
         }
     });
 
@@ -112,14 +122,15 @@ var frame = new Frame({
   } 
 });
 
-var toolbar = Toolbar({
-  title: "Praxis",
-  items: [button, frame]
-});
+// var toolbar = Toolbar({
+//   title: "Praxis",
+//   items: [button, frame]
+// });
 
-frame.on('load', function(){
-  frame.postMessage(plist, frame.url);
-});
+// frame.on('load', function(){
+//   console.log(plist);
+//   frame.postMessage(plist, frame.url);
+// });
 
 function handleClick(state) {
   tabs.open("http://labpatterns.org/");
