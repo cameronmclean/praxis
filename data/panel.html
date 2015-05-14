@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="bootstrap.min.css" rel="stylesheet" media="screen">
+<!--  seems these stylesheets wont work/load with the panel! :(  <link href="bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="panel.csss" type="text/css" rel="stylesheet"> !-->
+  <style>
+  h2 {
+    color: blue;
+  }
+  </style>
+
   </head>
 
   <body>
-    Your ORCID : <p id="or"></p>
+    <p>Your ORCID : <span id="or"></span></p>
+    <p>Resource : <span id='page'></span></p>
+    <p>Title : <span id='name'></span></p>
     The pattern :
-    <h2 id="pattern"><h2>
+    <h2 id="pattern"></h2>
       is exemplified by
     <h1 id="text"></h1>
     <div class="container" id='force-container'></div>

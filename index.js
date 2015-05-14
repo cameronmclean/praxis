@@ -21,16 +21,16 @@ var listofpatterns = {};
 var poptions = Request({
   url: "http://labpatterns.org/patternlist",
   onComplete: function (response) {
-    //console.log(response.json);
+    //we only load the toolbar after getting a list of patterns to populate the menu
     var toolbar = Toolbar({
-  title: "Praxis",
-  items: [button, frame]
-  });
+      title: "Praxis",
+      items: [button, frame]
+    });
+    
     plist = response.json;//save to plist, later to send to toolbar frame.on('load')
-    // console.log(plist);
-    // frame.postMessage(plist, frame.url);
+    
+    //once the toobar frame has loaded, populate the pattern options dropdown
     frame.on('load', function(){
-      console.log(plist);
       frame.postMessage(plist, frame.url);
     });
   }

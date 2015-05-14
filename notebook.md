@@ -195,3 +195,7 @@ Hit by more crazy async gotchas.
 Moved the declaration of the toolbar frame to after the get pattern list from labpatterns.org has completed. 
 then once frame has loaded, postMessage with the pattern list.
 Seems to work everytime now.... but we'll see.....
+
+also, we cant seem to style any content in the add-on panel after context click except by writing inline in the html.
+uh. Oh well. or it might be that just html to be inserted with jQuery in the content script needs to be specified inline....
+
