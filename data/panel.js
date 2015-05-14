@@ -10,3 +10,7 @@ self.port.on('pselected', function(pattern){
 self.port.on('orcid', function(orcid){
 	$('#or').html(orcid);  
 });
+
+self.port.on('forces', function(forces){
+	$('#forces').html(forces[1]['forceName']);  
+});

@@ -33,6 +33,8 @@ var selectedPattern = {"id":0, "name": "No pattern selected"}; //set inital patt
 
 var contextMenu = require("sdk/context-menu");
 
+
+
  var menuItem = contextMenu.Item({
   label: "Annotate this",
   image: self.data.url("Annotation_icon.png"),
@@ -55,6 +57,20 @@ var contextMenu = require("sdk/context-menu");
     panel.port.emit("payload", selectionText);
     panel.port.emit("pselected", selectedPattern);
     panel.port.emit("orcid", userOrcid);
+    var finfo = {};
+    var foptions = Request({
+      url: "http://labpatterns.org/doc/pattern/"+selectedPattern["id"],
+      onComplete: function(response, callback){
+        finfo = response.json['force'];
+        panel.port.emit("forces", finfo);
+        console.log(finfo);
+        }
+    });
+
+    foptions.get();
+
+    // get the currently selected pattern force info
+
   }
 });
 

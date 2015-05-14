@@ -154,5 +154,32 @@ var frame = new Frame({
 });
 ```
 
-Used some jQuery to detect keyup in toolbar frame orcid text input. if length of input = 19, we send the value back to add-on(index).js to send through to panel, keep track etc...
- 
+Used some jQuery to detect keyup in toolbar frame orcid text input. if length of input = 19, we send the value back to add-on(index).js to send through to panel, keep track etc.
+http://stackoverflow.com/questions/11184309/any-listener-for-input-type-text
+http://stackoverflow.com/questions/6153047/detect-changed-input-text-box
+were very helpful
+
+#####20150514
+Figured a way send currently selected pattern info to the panel window. Inside the onMessage section of the context click
+```
+  var finfo = {};
+    var foptions = Request({
+      url: "http://labpatterns.org/doc/pattern/"+selectedPattern["id"],
+      onComplete: function(response, callback){
+        finfo = response.json['force'];
+        panel.port.emit("forces", finfo);
+        console.log(finfo);
+        }
+    });
+
+    foptions.get();
+```
+then we just have to listen for 'forces' in the panel content script
+```
+self.port.on('forces', function(forces){
+  $('#forces').html(forces[1]['forceName']);  
+});
+```
+NEXT - to actually grab all the forces and show them nicely.
+and in a way that can be selected for inclusion in the annotation graph.
+
