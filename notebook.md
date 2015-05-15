@@ -199,3 +199,41 @@ Seems to work everytime now.... but we'll see.....
 also, we cant seem to style any content in the add-on panel after context click except by writing inline in the html.
 uh. Oh well. or it might be that just html to be inserted with jQuery in the content script needs to be specified inline....
 
+#####20150515
+OK thiking ahead.
+
+I'll need to POST the annotation graph somewhere.
+One idea - 
+1)set up 4store on the labpatterns server - running as localhost
+http://4store.org/
+2) create a labpatterns.org/annotate POST route that can accept the annotaion, wrangle it, and POST it again to the localhost 4Store http SPARQL update.
+3) create a reverse proxy at labpatterns.org/sparql that ferries requests to and from the 4store localhost/SPARQL
+see http://stackoverflow.com/questions/10435407/proxy-with-express-js
+``` eg
+var request = require('request');
+app.get('/', function(req,res) {
+  //modify the url in any way you want
+  var newurl = 'http://google.com/';
+  request(newurl).pipe(res);
+});
+```
+or 
+```
+app.use('/api', function(req, res) {
+  var url = 'YOUR_API_BASE_URL'+ req.url;
+  var r = null;
+  if(req.method === 'POST') {
+     r = request.post({uri: url, json: req.body});
+  } else {
+     r = request(url);
+  }
+
+  req.pipe(r).pipe(res);
+});
+```
+
+
+4) serve a static web page from labpatterns.org/explore that uses the d3sparql to allow friendly/pretty exploration of pattern annotations
+5) NOTE that this depends on having a clear and explict annotation model+vocab, and pattern model+vocab, plus clear example use cases of SPARQL queries that demo the utility of connecting info in this way (i.e epsitemological adequacy and pragmatic questions)
+
+quick play with 4store on local machine suggests it's simple to install, create a db, add a graph from file in n3 format, spin up the SPARQL and it all works.
