@@ -23,7 +23,24 @@ self.port.on('forces', function(forces){
 $('#fire-button').click(function(){
 	var fdata = [];
 	var fdata = $('#annotation').serializeArray();
+	var target = {};
+	target['name'] = "hasTaget";
+	target['value'] = $('#page').html();
+	fdata.push(target)
+	var title = {};
+	title['name'] = "pageName";
+	title['value'] = $('#name').html();
+	fdata.push(title);
+	var annot = {};
+	annot['name'] = "exemplifiedBy";
+	annot['value'] = $('#text').html();
+	fdata.push(annot);
+
 	self.port.emit('data-entered', fdata); 
+
 	$('#comment').val(''); //clear the comment field after sending
 });
 
+self.port.on('post', function(response){
+	alert("Annotation POSTed with response "+response);
+});

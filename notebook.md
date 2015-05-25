@@ -245,3 +245,12 @@ NOTE: YES - use accecpt: application/sparql-results+json
 also I need/want some basic text indexing too
 http://4store.org/trac/wiki/TextIndexing
 by specifying which objects should be indexed and how - eg dc:name, lp:descritpion, orcid:author blah blah.
+
+#####20150525
+
+OK so got panel sending SOME data back to index.js /add-on
+need to think carefully about what variables are in scope and when the post/data is being called.
+fix this first....
+
+THEN - to find out why the POST request from the node.js end is not seeign the req.body (assuming it is being sent)...
+

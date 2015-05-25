@@ -43,7 +43,7 @@ var selectedPattern = {"id":0, "name": "No pattern selected"}; //set inital patt
 
 var contextMenu = require("sdk/context-menu");
 
-
+//var payload = {};
 
  var menuItem = contextMenu.Item({
   label: "Annotate this",
@@ -86,21 +86,7 @@ var contextMenu = require("sdk/context-menu");
 });
 
 
-//rando placement of listen
-//listen for submitting annotation form data back
-  panel.port.on("data-entered", function(fdata){
-    console.log("data sent back from panel");
-    console.log(fdata.length);
-    // for (var i in fdata) {
-    // console.log(fdata[i]);   
-    // }
 
-    //wrangle all the data into a json for posting to /labpatterns/update
-    fdata.push(payload);
-    fdata.push(pselected);
-    fdata.push()
-    panel.hide();
-  });
 
 
 
@@ -156,6 +142,51 @@ function handleClick(state) {
   tabs.open("http://labpatterns.org/");
 }
 
+//rando placement of listen
+//listen for submitting annotation form data back
+  panel.port.on("data-entered", function(fdata){
+    console.log("data sent back from panel");
+    console.log(fdata.length);
+    // for (var i in fdata) {
+    // console.log(fdata[i]);   
+    // }
+
+     //wrangle all the data into a json for posting to /labpatterns/update
+    var annoData = {};
+    //move fdata from list into object
+    for (var i = 0; i < fdata.length; i++) {
+      annoData[fdata[i]['name']] = fdata[i]['value']
+    }
+
+    annoData['creatorORCID'] = "http://orcid.org/"+userOrcid;
+    annoData['concernsPattern'] = "http://labpatterns.org/id/pattern/"+selectedPattern["id"]; 
+    
+   // console.log(payload['where']);
+    console.log(annoData);
+    // var sendTheData = Request({
+    //   url: "http://127.0.0.1:8080/annotate",
+    //   content: annoData
+    //   // onComplete: function(){
+    //   //   var message = "Hi Mum!"
+    //   //   panel.port.emit('post', message);
+    //   //   //console.log(response);
+      
+    // });
+    Request({
+       url: "http://127.0.0.1:8080/annotate",
+       content: annoData,
+        onComplete: function(response){
+       //   var message = "Hi Mum!"
+       //   panel.port.emit('post', message);
+          console.log(response.text);
+        }
+     }).post();
+
+    // sendTheData.post();
+
+    panel.hide();
+
+  });
 
 
 
