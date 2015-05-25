@@ -254,3 +254,15 @@ fix this first....
 
 THEN - to find out why the POST request from the node.js end is not seeign the req.body (assuming it is being sent)...
 
+OK - so Request().post() - needed to do to two more things
+1) set `contentType: 'application/json'`
+2) use `content: JSON.stringify(annoData)`
+
+Now it gets posted and parsed correctly at hyperPatterns/annotate
+
+Yusss!
+Now just to
+  - create error handing and success messages to pass back
+  - wrangle the hyperPatterns site to do useful things with the POSTed annotations/exemplars
+
+  
