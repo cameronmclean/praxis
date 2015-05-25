@@ -237,3 +237,11 @@ app.use('/api', function(req, res) {
 5) NOTE that this depends on having a clear and explict annotation model+vocab, and pattern model+vocab, plus clear example use cases of SPARQL queries that demo the utility of connecting info in this way (i.e epsitemological adequacy and pragmatic questions)
 
 quick play with 4store on local machine suggests it's simple to install, create a db, add a graph from file in n3 format, spin up the SPARQL and it all works.
+
+note will need to make sure 4Store retuns SPARQL results in a format that d3sparql can parse. I think this is doable by specifying output=JSON in the SPARQL query or as accept type in the http header.
+http://4store.org/trac/ticket/5 
+NOTE: YES - use accecpt: application/sparql-results+json
+
+also I need/want some basic text indexing too
+http://4store.org/trac/wiki/TextIndexing
+by specifying which objects should be indexed and how - eg dc:name, lp:descritpion, orcid:author blah blah.

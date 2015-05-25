@@ -76,19 +76,39 @@ var contextMenu = require("sdk/context-menu");
        // console.log(finfo);
         }
     });
-
+    // get the currently selected pattern force info
     foptions.get();
 
-    // get the currently selected pattern force info
+ 
+    
 
   }
 });
+
+
+//rando placement of listen
+//listen for submitting annotation form data back
+  panel.port.on("data-entered", function(fdata){
+    console.log("data sent back from panel");
+    console.log(fdata.length);
+    // for (var i in fdata) {
+    // console.log(fdata[i]);   
+    // }
+
+    //wrangle all the data into a json for posting to /labpatterns/update
+    fdata.push(payload);
+    fdata.push(pselected);
+    fdata.push()
+    panel.hide();
+  });
+
+
 
 var button = buttons.ActionButton({
   id: "Labpatterns-link",
   label: "Visit Labpatterns.org",
   icon: {
-    "48": "./noun_13680.png"
+    "48": "./Science-icon.png"
   },
   onClick: handleClick
 });

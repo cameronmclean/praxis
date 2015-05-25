@@ -2,10 +2,21 @@
 <html>
   <head>
 <!--  seems these stylesheets wont work/load with the panel! :(  <link href="bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="panel.csss" type="text/css" rel="stylesheet"> !-->
+    <link href="panel.csss" type="text/css" rel="stylesheet"> 
+  NOTE: can possibly load them in from the add-on index.js along with the context script
+    !-->
   <style>
   h2 {
-    color: blue;
+    color: navy;
+  }
+
+  #text {
+    color: #8B4513;
+  }
+
+  #page {
+    color: #336633;
+    font-weight: bold;
   }
   </style>
 
@@ -15,26 +26,21 @@
     <p>Your ORCID : <span id="or"></span></p>
     <p>Resource : <span id='page'></span></p>
     <p>Title : <span id='name'></span></p>
-    The pattern :
+    Desing pattern :
     <h2 id="pattern"></h2>
-      is exemplified by
+      The selected fragment
     <h1 id="text"></h1>
+    exemplifies the following forces ...
+    <form id="annotation">
     <div class="container" id='force-container'></div>
-    <form>
-  <input type="textarea" rows="3" placeholder"comment on this">
+  
 
-    <div class="radio">
-      Select relevant forces for this annotation...
-      <label><input type="radio" name="optradio">Force 1</label>
-    </div>
-    <div class="radio">
-      <label><input type="radio" name="optradio">Force2 2</label>
-    </div>
-      <label><input type="radio" name="optradio">Force 3</label>
-    </div>
+    <!-- <input type='submit' value='submit'> ~-->
 
-<input type='submit' value='submit'>
 </form>
-  <div id='force-container'></div>
+ <textarea name='comment' id="comment" form='annotation' rows='6' cols='70' placeholder="Comment further on this annotation, including specific contextual details such as species, reagent type, any caveats, or other unique features about this solution.">
+</textarea>
+  <button id="fire-button" type='button'>Submit</button>
   </body>
+
 </html>
