@@ -162,7 +162,9 @@ function handleClick(state) {
     annoData['concernsPattern'] = "http://labpatterns.org/id/pattern/"+selectedPattern["id"]; 
     
    // console.log(payload['where']);
-    console.log(annoData);
+    // console.log(annoData);
+    // var whatever = JSON.parse(annoData);
+    // console.log(wahtever)
     // var sendTheData = Request({
     //   url: "http://127.0.0.1:8080/annotate",
     //   content: annoData
@@ -174,7 +176,8 @@ function handleClick(state) {
     // });
     Request({
        url: "http://127.0.0.1:8080/annotate",
-       content: annoData,
+       contentType: "application/json",
+       content: JSON.stringify(annoData),
         onComplete: function(response){
        //   var message = "Hi Mum!"
        //   panel.port.emit('post', message);
