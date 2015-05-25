@@ -77,7 +77,7 @@ var contextMenu = require("sdk/context-menu");
         }
     });
     // get the currently selected pattern force info
-    foptions.get();
+    if (selectedPattern['id'] != 0) foptions.get();
 
  
     
@@ -145,8 +145,8 @@ function handleClick(state) {
 //rando placement of listen
 //listen for submitting annotation form data back
   panel.port.on("data-entered", function(fdata){
-    console.log("data sent back from panel");
-    console.log(fdata.length);
+   // console.log("data sent back from panel");
+   // console.log(fdata.length);
     // for (var i in fdata) {
     // console.log(fdata[i]);   
     // }
@@ -157,6 +157,11 @@ function handleClick(state) {
     for (var i = 0; i < fdata.length; i++) {
       annoData[fdata[i]['name']] = fdata[i]['value']
     }
+
+    if (userOrcid === "Invalid ORCID" || selectedPattern['id'] === 0){ //check the user has entered an ORCID and selected a pattern
+    //  console.log("sending alert");
+      panel.port.emit('incomplete', null);
+    } else { // if all good, wrangle and post the data. 
 
     annoData['creatorORCID'] = "http://orcid.org/"+userOrcid;
     annoData['concernsPattern'] = "http://labpatterns.org/id/pattern/"+selectedPattern["id"]; 
@@ -188,6 +193,8 @@ function handleClick(state) {
     // sendTheData.post();
 
     panel.hide();
+
+  }
 
   });
 

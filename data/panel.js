@@ -39,8 +39,13 @@ $('#fire-button').click(function(){
 	self.port.emit('data-entered', fdata); 
 
 	$('#comment').val(''); //clear the comment field after sending
+	$('#incomplete').html(''); //clear the error
 });
 
-self.port.on('post', function(response){
-	alert("Annotation POSTed with response "+response);
-});
+// self.port.on('post', function(response){
+// 	alert("Annotation POSTed with response "+response);
+// });
+
+ self.port.on('incomplete', function(){
+ 	$("#incomplete").html("<p> Please ensure you have entered a valid ORCID and selected a pattern to exemplify.</p>");
+})
