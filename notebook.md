@@ -265,4 +265,7 @@ Now just to
   - create error handing and success messages to pass back
   - wrangle the hyperPatterns site to do useful things with the POSTed annotations/exemplars
 
-  
+
+OK - so it seems I cant get alerts to play nicely with the panel firefox add-on.
+This is a bug or limitation of working with panels.
+I could probably implement a jQery style div + error plus button handler to add/remove but will leave this for later. 

@@ -180,13 +180,13 @@ function handleClick(state) {
       
     // });
     Request({
-       url: "http://127.0.0.1:8080/annotate",
+       url: "http://labpatterns.org/annotate",
        contentType: "application/json",
        content: JSON.stringify(annoData),
         onComplete: function(response){
        //   var message = "Hi Mum!"
        //   panel.port.emit('post', message);
-          console.log(response.text);
+         // console.log(response.text);
         }
      }).post();
 

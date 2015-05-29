@@ -24,7 +24,7 @@ $('#fire-button').click(function(){
 	var fdata = [];
 	var fdata = $('#annotation').serializeArray();
 	var target = {};
-	target['name'] = "hasTaget";
+	target['name'] = "targetURL";
 	target['value'] = $('#page').html();
 	fdata.push(target)
 	var title = {};
