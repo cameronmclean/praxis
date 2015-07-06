@@ -91,7 +91,7 @@ self.port.on('payload', function(payload){
   $('#text').append(payload["anno"]);
 });
 ```
-and when it sees the event it appends the text to a <h1 id='text'>
+and when it sees the event it appends the text to a `<h1 id='text'>`
 
 back in the onMessage from the context click, we then message the panel.js as shown
 `panel.port.emit("payload", selectionText);`
@@ -184,10 +184,10 @@ NEXT - to actually grab all the forces and show them nicely.
 and in a way that can be selected for inclusion in the annotation graph.
 
 fortunately, because of my awesomness, the pattern info we get when populating the panel after an annotate context click is great.
-I can use the force info directly to fetch <img> etc.
+I can use the force info directly to fetch `<img>` etc.
 Used jQuery to dynamically populate the panel, placing images and checkboxes for each force.
 note : need to clear the container div with and empty .html("") before iterating through forces, as forces are appened, and otherwise never removed from the force container 
-<div>
+`<div>`
 
 ah. so now I cant get the pattern selection to populate the toolbar dropdown. I'm guessing because the get request is async, and not finishing in time before the frame.on('load')... FIXED for now by placing the frame.postMessage in the callback (onComplete) of the get pattern request. 
 
@@ -220,7 +220,7 @@ app.get('/', function(req,res) {
 or 
 ```
 app.use('/api', function(req, res) {
-  var url = 'YOUR_API_BASE_URL'+ req.url;
+  var url = 'YOUR\_API\_BASE_URL'+ req.url;
   var r = null;
   if(req.method === 'POST') {
      r = request.post({uri: url, json: req.body});
