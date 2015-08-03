@@ -307,4 +307,9 @@ Then, I posit that we pretty much done for now...
  got window.find() to work - matching only words.slice(0,20) (first 20 chars)
  NEED to wrap windows.find in a callback after scroll(0,0) - which is my hack to ensure we start at the top every time.
  BUT this will _always_ only find the first instance of the match on the page...! Ugh.
- 
+
+ -- later still.
+ OK back to plain old window.find() - the user just needs to know that this automates ctr-F - we need to manually scroll to top if we want to find the matches...
+ The only other solution is to roll our own Jquery - get the string, then traverse the dom and get all matches, for each match, store the div, then on each click cycle through the matched div, using css to highlight the components - but this rarely works well because of the wild differences in html and css across different web sites. We have to load in Jquery againg and loop through the page many times to get all the instances. window.find() is lightweight and "good enough"..
+
+ NEW feature request. On.click of <img> or <p>name</p> we should bring up another lightweight panel or alert with HTML formatted pattern info?

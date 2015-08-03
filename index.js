@@ -182,14 +182,17 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
 
     worker.port.on('highlight', function(words){
       var shortword = words.slice(0,20);
-    //  var newworker = tabs.activeTab.attach({
+     // var newworker = tabs.activeTab.attach({
      // require("sdk/tabs").activeTab.attach({
       tabs.activeTab.attach({     
       //THE below kinda works, but doesnt navigate to any found text. The window.find() is less good due to direction, but focuses on the relevant text...
      // contentScriptFile: [self.data.url('jquery-1.11.3.min.js'), self.data.url('highlight.js'), self.data.url('matchit.js')]
      // });
+     // contentScriptFile: [self.data.url('jquery-1.11.3.min.js'), self.data.url('matchit.js')]
+     // });
      // newworker.port.emit('bo_selecta', words);
-        contentScript: "scroll(0,0); window.find('"+shortword+"');" //<- yes this works but suffers from async of death - wrap em in a callback and we should be good..
+      //contentScript: "var goTop = function(callback) { scroll(0, 0); callback(); }; var goFetch = function() { window.find('"+shortword+"'); }; goTop(goFetch);"
+        contentScript: "window.find('"+shortword+"');" 
       });
     });
 
