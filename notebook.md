@@ -274,3 +274,5 @@ I could probably implement a jQery style div + error plus button handler to add/
 Final push - basic method to have exisiting exemplars displayed on web pages that have been annotated.
 main.js adds button to toolbar, which on click show() the sidebar we create. Sidebar is specified in data/sidebar.html and data/sidebar.js
 Hopefully the sidebar.js can query the sparql endpoint for annos with the page URL (i'll need to pass this to the sidebar...) and Jquery style populate the sidebar with pretty cards that represent annotations (and .pngs!) for the forces and comments...
+Some trouble getting the current url piped into the sidebar - window.location.href not working, but tabs.activeTab.url; was no trouble.
+Upon clicking the tag button, we grab the current tab url, and message the sidebar.html/js - next is to use the data passed in to query the SPARQL, parse the results, and dynamically display nice exemplar cards on the side.

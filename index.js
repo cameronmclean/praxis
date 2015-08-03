@@ -153,6 +153,7 @@ function handleClick(state) {
 
 
 //create the sidebar for viewing annotations
+var urlToView = "";
 var workerArray = [];
 
 function attachWorker(worker) {
@@ -170,13 +171,23 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
   title: 'Exemplars',
   url: require("sdk/self").data.url("sidebar.html"),
   onAttach: attachWorker,
-  onDetach: detachWorker
+  onDetach: detachWorker,
+  onReady: function (worker) {
+    //urlToView = window.location.href;
+    urlToView = tabs.activeTab.url;
+    worker.port.emit("page", urlToView);
+    //worker.port.on("pong", function() {
+    //  console.log("add-on script got the reply");
+    }
 });
 
 
 
 function handleClickViewer(state) {
-  // for now open tab - then figure out how to create sidebar
+  //get current window URL - save in global var
+//  urlToView = window.content.location.href;
+//  alert(urlToView);
+  //send to sidebar
   sidebar.show();
 }
 
