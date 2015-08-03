@@ -176,6 +176,20 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
     //urlToView = window.location.href;
     urlToView = tabs.activeTab.url;
     worker.port.emit("page", urlToView);
+    var query = "SELECT ?ex WHERE { ?ex <http://purl.org/NET/exemplr#creatorORCID> <http://orcid.org/0000-0002-9836-3824> . }";
+    var sparql = encodeURIComponent(query);
+    var getEx = Request({
+      url: 'http://labpatterns.org/sparql/?query='+sparql,
+      headers: { Accept: "application/sparql-results+json" },
+   // content: sparql,
+      onComplete: function(res) {
+        //console.log("QUERY = "+sparql+"   ");
+        console.log(res.text);
+        var exList = res.json;
+        worker.port.emit('data', exList);
+      }
+    });
+    getEx.get();
     //worker.port.on("pong", function() {
     //  console.log("add-on script got the reply");
     }

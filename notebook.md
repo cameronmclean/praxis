@@ -276,3 +276,12 @@ main.js adds button to toolbar, which on click show() the sidebar we create. Sid
 Hopefully the sidebar.js can query the sparql endpoint for annos with the page URL (i'll need to pass this to the sidebar...) and Jquery style populate the sidebar with pretty cards that represent annotations (and .pngs!) for the forces and comments...
 Some trouble getting the current url piped into the sidebar - window.location.href not working, but tabs.activeTab.url; was no trouble.
 Upon clicking the tag button, we grab the current tab url, and message the sidebar.html/js - next is to use the data passed in to query the SPARQL, parse the results, and dynamically display nice exemplar cards on the side.
+
+OK spent _ages_ trying to get the plugin to query and return something from the labpatterns/sparql endpoint.
+Turns out - _must specify the trailing / if we want it to work_
+I.e. a curl request to the endpoint looks like this
+```
+curl http://labpattterns.org/sparql/?query=[urlencoded query]
+```
+
+DUMB! I should try and fix this trailing slash business - but for now I will focus on getting the appropriate sparql query made  to bind all the data we want to display on the side panel for each page with annotations. Then we need to wade through the JSON to populate the sidebar html...
