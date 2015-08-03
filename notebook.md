@@ -293,8 +293,18 @@ but later...
 
 OK - sidebar nnow displays all the basic info.
 still need to 
+0) remove uneeded D3/sparql .js
 1) prettify
 2) make <a hrefs to pattern info?> or hover and display?
 2.5) deal with multiple forces.
 3) have text frag <divs> clickable and search/highlight the corresponsing elements on the page. (jQuery)
 Then, I posit that we pretty much done for now...
+
+--later
+ OK - 
+ removed uneeded D3
+ added now uneeded hightlight.js and matchit.js
+ got window.find() to work - matching only words.slice(0,20) (first 20 chars)
+ NEED to wrap windows.find in a callback after scroll(0,0) - which is my hack to ensure we start at the top every time.
+ BUT this will _always_ only find the first instance of the match on the page...! Ugh.
+ 

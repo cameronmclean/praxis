@@ -179,6 +179,20 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
     var query = "SELECT DISTINCT ?ex ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE { ?ex <http://purl.org/NET/exemplr#hasTargetURL> <"+urlToView+"> . ?ex <http://purl.org/NET/exemplr#concernsPattern> ?pattern . ?pattern <http://schema.org/name> ?patternTitle . ?pattern <http://xmlns.com/foaf/0.1/depiction> ?patternPic . ?ex <http://purl.org/NET/exemplr#concernsForce> ?force . ?force <http://xmlns.com/foaf/0.1/depiction> ?forcePic . ?force <http://schema.org/name> ?forceTitle . ?ex <http://purl.org/NET/exemplr#hasTargetDetail> ?eXdetail . ?ex <http://purl.org/NET/exemplr#hasComment> ?eXcomment . ?ex <http://purl.org/NET/exemplr#creatorORCID> ?orcid . }";
     //var query = "SELECT ?ex WHERE { ?ex <http://purl.org/NET/exemplr#creatorORCID> <http://orcid.org/0000-0002-9836-3824> . }";
     var sparql = encodeURIComponent(query);
+
+    worker.port.on('highlight', function(words){
+      var shortword = words.slice(0,20);
+    //  var newworker = tabs.activeTab.attach({
+     // require("sdk/tabs").activeTab.attach({
+      tabs.activeTab.attach({     
+      //THE below kinda works, but doesnt navigate to any found text. The window.find() is less good due to direction, but focuses on the relevant text...
+     // contentScriptFile: [self.data.url('jquery-1.11.3.min.js'), self.data.url('highlight.js'), self.data.url('matchit.js')]
+     // });
+     // newworker.port.emit('bo_selecta', words);
+        contentScript: "scroll(0,0); window.find('"+shortword+"');" //<- yes this works but suffers from async of death - wrap em in a callback and we should be good..
+      });
+    });
+
     //form the request
     var getEx = Request({
       url: 'http://labpatterns.org/sparql/?query='+sparql,
@@ -193,6 +207,7 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
       }
     });
     //do the request
+
     getEx.get();
     }
 });

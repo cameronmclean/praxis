@@ -21,6 +21,13 @@ addon.port.on("data", function(results) {
 	 		<p>Forces:</p> <img class='fPic' height='40' src="+results.bindings[i]['forcePic']['value']+"> <span>"+results.bindings[i]['forceTitle']['value']+"</span> \
 	 		<p>Text:</p><div class='fragText'>"+results.bindings[i]['eXdetail']['value']+"</div><p>Comment:</p><div class='comText'>"+results.bindings[i]['eXcomment']['value']+"</div>Contributor: <a href="+results.bindings[i]['orcid']['value']+">"+results.bindings[i]['orcid']['value']+"</a></div>");
 	 }
-	//this function is getting called - next to do something with exList
 	
+	$('.fragText').click(function(){
+		//if clicked get words and send them back to the index.js to manipulate the main page.
+		var words = $(this).text();
+		addon.port.emit("highlight", words);
+		// alert(words);
+		// window.find(words, false, false);
+	});
+
 });
