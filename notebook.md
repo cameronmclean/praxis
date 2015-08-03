@@ -278,10 +278,23 @@ Some trouble getting the current url piped into the sidebar - window.location.hr
 Upon clicking the tag button, we grab the current tab url, and message the sidebar.html/js - next is to use the data passed in to query the SPARQL, parse the results, and dynamically display nice exemplar cards on the side.
 
 OK spent _ages_ trying to get the plugin to query and return something from the labpatterns/sparql endpoint.
-Turns out - _must specify the trailing / if we want it to work_
+Turns out - _must specify the trailing `/` if we want it to work_
 I.e. a curl request to the endpoint looks like this
 ```
 curl http://labpattterns.org/sparql/?query=[urlencoded query]
 ```
 
 DUMB! I should try and fix this trailing slash business - but for now I will focus on getting the appropriate sparql query made  to bind all the data we want to display on the side panel for each page with annotations. Then we need to wade through the JSON to populate the sidebar html...
+
+OK - sidebar index.js now does a new SPARQL whenever the sidebar is closed and button is clicked again.
+Note - this is a bit annoying, having to close, and reload everytime - but whatever. 
+Also - dealing with hash URIs is a pain - I should strip them from 1)being saved in the exemplars, and 2) being requested in the sidebar SPARQL.
+but later...
+
+OK - sidebar nnow displays all the basic info.
+still need to 
+1) prettify
+2) make <a hrefs to pattern info?> or hover and display?
+2.5) deal with multiple forces.
+3) have text frag <divs> clickable and search/highlight the corresponsing elements on the page. (jQuery)
+Then, I posit that we pretty much done for now...

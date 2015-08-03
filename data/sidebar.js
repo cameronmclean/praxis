@@ -15,7 +15,12 @@ addon.port.on("page", function(urlToView) {
 
 });
 
-addon.port.on("data", function(exList) {
+addon.port.on("data", function(results) {
+	 for (var i in results.bindings){
+	 	$("#container").append("<div class='anno' id="+i+"><img class='pPic' height='25' src="+results.bindings[i]['patternPic']['value']+"><span>"+results.bindings[i]['patternTitle']['value']+"</span> \
+	 		<p>Forces:</p> <img class='fPic' height='40' src="+results.bindings[i]['forcePic']['value']+"> <span>"+results.bindings[i]['forceTitle']['value']+"</span> \
+	 		<p>Text:</p><div class='fragText'>"+results.bindings[i]['eXdetail']['value']+"</div><p>Comment:</p><div class='comText'>"+results.bindings[i]['eXcomment']['value']+"</div>Contributor: <a href="+results.bindings[i]['orcid']['value']+">"+results.bindings[i]['orcid']['value']+"</a></div>");
+	 }
 	//this function is getting called - next to do something with exList
-	$("#container").html("<p>Hey there</p>");
+	
 });

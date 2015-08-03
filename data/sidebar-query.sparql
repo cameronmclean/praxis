@@ -1,0 +1,12 @@
+SELECT DISTINCT ?ex ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE {
+	?ex <http://purl.org/NET/exemplr#hasTargetURL> <https://peerj.com/articles/688/#p-6> .
+	?ex <http://purl.org/NET/exemplr#concernsPattern> ?pattern .
+	?pattern <http://schema.org/name> ?patternTitle .
+	?pattern <http://xmlns.com/foaf/0.1/depiction> ?patternPic .
+	?ex <http://purl.org/NET/exemplr#concernsForce> ?force .
+	?force <http://xmlns.com/foaf/0.1/depiction> ?forcePic .
+	?force <http://schema.org/name> ?forceTitle .
+	?ex <http://purl.org/NET/exemplr#hasTargetDetail> ?eXdetail .
+	?ex <http://purl.org/NET/exemplr#hasComment> ?eXcomment .
+	?ex <http://purl.org/NET/exemplr#creatorORCID> ?orcid .
+}
