@@ -269,3 +269,8 @@ Now just to
 OK - so it seems I cant get alerts to play nicely with the panel firefox add-on.
 This is a bug or limitation of working with panels.
 I could probably implement a jQery style div + error plus button handler to add/remove but will leave this for later. 
+
+#####20150803
+Final push - basic method to have exisiting exemplars displayed on web pages that have been annotated.
+main.js adds button to toolbar, which on click show() the sidebar we create. Sidebar is specified in data/sidebar.html and data/sidebar.js
+Hopefully the sidebar.js can query the sparql endpoint for annos with the page URL (i'll need to pass this to the sidebar...) and Jquery style populate the sidebar with pretty cards that represent annotations (and .pngs!) for the forces and comments...

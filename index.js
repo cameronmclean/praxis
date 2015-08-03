@@ -24,7 +24,7 @@ var poptions = Request({
     //we only load the toolbar after getting a list of patterns to populate the menu
     var toolbar = Toolbar({
       title: "Praxis",
-      items: [button, frame]
+      items: [button, buttonView, frame]
     });
     
     plist = response.json;//save to plist, later to send to toolbar frame.on('load')
@@ -99,6 +99,15 @@ var button = buttons.ActionButton({
   onClick: handleClick
 });
 
+var buttonView = buttons.ActionButton({
+  id: "buttonView",
+  label: "View exemplars for this page",
+  icon: {
+    "48": "./tag.png"
+  },
+  onClick: handleClickViewer
+});
+
 var userOrcid = "Invalid ORCID";
 
 var frame = new Frame({
@@ -141,6 +150,43 @@ var frame = new Frame({
 function handleClick(state) {
   tabs.open("http://labpatterns.org/");
 }
+
+
+//create the sidebar for viewing annotations
+var workerArray = [];
+
+function attachWorker(worker) {
+  workerArray.push(worker);
+}
+
+function detachWorker(worker) {
+  var index = workerArray.indexOf(worker);
+  if(index != -1) {
+    workerArray.splice(index, 1);
+  }
+}
+var sidebar = require('sdk/ui/sidebar').Sidebar({
+  id: 'exemplar-viewer',
+  title: 'Exemplars',
+  url: require("sdk/self").data.url("sidebar.html"),
+  onAttach: attachWorker,
+  onDetach: detachWorker
+});
+
+
+
+function handleClickViewer(state) {
+  // for now open tab - then figure out how to create sidebar
+  sidebar.show();
+}
+
+
+
+
+
+
+
+
 
 //rando placement of listen
 //listen for submitting annotation form data back
