@@ -313,3 +313,6 @@ Then, I posit that we pretty much done for now...
  The only other solution is to roll our own Jquery - get the string, then traverse the dom and get all matches, for each match, store the div, then on each click cycle through the matched div, using css to highlight the components - but this rarely works well because of the wild differences in html and css across different web sites. We have to load in Jquery againg and loop through the page many times to get all the instances. window.find() is lightweight and "good enough"..
 
  NEW feature request. On.click of <img> or <p>name</p> we should bring up another lightweight panel or alert with HTML formatted pattern info?
+
+#####20150805
+modified window.find() on annotation text <div> click to search for the first 20 chars (or less if words < 20 chars ).

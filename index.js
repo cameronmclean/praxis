@@ -181,7 +181,8 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
     var sparql = encodeURIComponent(query);
 
     worker.port.on('highlight', function(words){
-      var shortword = words.slice(0,20);
+     var shortword = "" 
+     if (words.length >20 ) { shortword = words.slice(0,20); } else { shortword = words; }
      // var newworker = tabs.activeTab.attach({
      // require("sdk/tabs").activeTab.attach({
       tabs.activeTab.attach({     
@@ -192,7 +193,7 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
      // });
      // newworker.port.emit('bo_selecta', words);
       //contentScript: "var goTop = function(callback) { scroll(0, 0); callback(); }; var goFetch = function() { window.find('"+shortword+"'); }; goTop(goFetch);"
-        contentScript: "window.find('"+shortword+"');" 
+        contentScript: "if (!window.find('"+shortword+"')) { window.find('"+shortword+"',0,1); }" 
       });
     });
 
