@@ -103,7 +103,7 @@ var buttonView = buttons.ActionButton({
   id: "buttonView",
   label: "View exemplars for this page",
   icon: {
-    "48": "./tag.png"
+    "48": "./highlighter.png"
   },
   onClick: handleClickViewer
 });

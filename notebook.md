@@ -326,4 +326,7 @@ good enough.
 yep - implemented by putting a clickable div around the pattern and force info - clickng opens new window with all pattern info from labpatterns.org
 
 righto. sidebar and exemplar display back on page v1.0 implemented!
+although multiple forces not dealt with?
+
+Next up - screenshots and chapter 5 improvements... <sigh>
 
