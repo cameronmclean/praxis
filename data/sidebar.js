@@ -2,32 +2,36 @@
 
 addon.port.on("page", function(urlToView) {
   $('#url').html(urlToView);
-  //query the sparql endpoint
- //   var endpoint = "http://labpatterns.org/sparql";
- //   var sparql = "prefix exemplr: <http://purl.org/NET/exemplr#> prefix schema: <http://schema.org/> prefix lp: <http://purl.org/NET/labpatterns#> SELECT ?ex WHERE { ?ex a exemplr:Exemplar . }" ;
- //   var sparql2 ="SELECT * WHERE { ?a ?b ?c .} LIMIT 10";
- // //$("#container").html(endpoint+"   "+sparql);
- //   d3sparql.query(endpoint, sparql2, render);
-   
- //     function render(jsonp) {
- //      $('#container').html("hi mum!");
- //     }
-
 });
 
 addon.port.on("data", function(results) {
 	 for (var i in results.bindings){
-	 	$("#container").append("<div class='anno' id="+i+"><img class='pPic' height='25' src="+results.bindings[i]['patternPic']['value']+"><span>"+results.bindings[i]['patternTitle']['value']+"</span> \
-	 		<p>Forces:</p> <img class='fPic' height='40' src="+results.bindings[i]['forcePic']['value']+"> <span>"+results.bindings[i]['forceTitle']['value']+"</span> \
-	 		<p>Text:</p><div class='fragText'>"+results.bindings[i]['eXdetail']['value']+"</div><p>Comment:</p><div class='comText'>"+results.bindings[i]['eXcomment']['value']+"</div>Contributor: <a href="+results.bindings[i]['orcid']['value']+">"+results.bindings[i]['orcid']['value']+"</a></div>");
+	 	
+	 	//get pattern number for each annotation so we can put it in a clickable otab div
+	 	var patternURL = results.bindings[i]['pattern']['value'];
+	 	var patternNumArray = patternURL.split('/');
+	 	var patternNum = patternNumArray[patternNumArray.length - 1];
+	 	//console.log(patternNum);
+
+	 	//fill each annotation 
+	 	$("#container").append("<div class='anno' id='ex"+i+"'><div class='otab' id='?id="+patternNum+"'><img class='pPic' height='25' src="+results.bindings[i]['patternPic']['value']+"><span>"+results.bindings[i]['patternTitle']['value']+"</span> \
+	 		<br><img class='fPic' height='35' src="+results.bindings[i]['forcePic']['value']+"><br><span class>"+results.bindings[i]['forceTitle']['value']+"</span></div> \
+	 		<p>Text:</p> <div class='fragText'>"+results.bindings[i]['eXdetail']['value']+"</div><p>Comment:</p><div class='comText'>"+results.bindings[i]['eXcomment']['value']+"</div>Contributor: <span class='orcidlink'><a href="+results.bindings[i]['orcid']['value']+">"+results.bindings[i]['orcid']['value']+"</a></span></div>");
 	 }
 	
 	$('.fragText').click(function(){
-		//if clicked get words and send them back to the index.js to manipulate the main page.
+		//if clicked get words and send them back to the index.js to manipulate the main page for searching.
 		var words = $(this).text();
 		addon.port.emit("highlight", words);
 		// alert(words);
 		// window.find(words, false, false);
+	});
+
+	//if pattern/force names or pics are clicked, open new window with entire pattern to show context for the meaning/description/pattern
+	$('.otab').click(function(){
+		var pnum = $(this).attr('id');
+		//alert(pnum);
+		window.open('http://labpatterns.org/html/patternview.html'+pnum, '_blank');
 	});
 
 });

@@ -269,6 +269,7 @@ Now just to
 OK - so it seems I cant get alerts to play nicely with the panel firefox add-on.
 This is a bug or limitation of working with panels.
 I could probably implement a jQery style div + error plus button handler to add/remove but will leave this for later. 
+--later : yes - known issues - cant do alerts from panel in add-ons
 
 #####20150803
 Final push - basic method to have exisiting exemplars displayed on web pages that have been annotated.
@@ -316,3 +317,13 @@ Then, I posit that we pretty much done for now...
 
 #####20150805
 modified window.find() on annotation text <div> click to search for the first 20 chars (or less if words < 20 chars ).
+
+OK - linking back to pattern info - we make sidebar div clickable, and as long as we know the pattern id we can open tab/panel to extra info via 
+http://labpatterns.org/html/patternview.html?id=2
+
+good enough.
+
+yep - implemented by putting a clickable div around the pattern and force info - clickng opens new window with all pattern info from labpatterns.org
+
+righto. sidebar and exemplar display back on page v1.0 implemented!
+

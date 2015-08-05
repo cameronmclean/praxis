@@ -176,7 +176,7 @@ var sidebar = require('sdk/ui/sidebar').Sidebar({
     //urlToView = window.location.href;
     urlToView = tabs.activeTab.url;
     worker.port.emit("page", urlToView);
-    var query = "SELECT DISTINCT ?ex ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE { ?ex <http://purl.org/NET/exemplr#hasTargetURL> <"+urlToView+"> . ?ex <http://purl.org/NET/exemplr#concernsPattern> ?pattern . ?pattern <http://schema.org/name> ?patternTitle . ?pattern <http://xmlns.com/foaf/0.1/depiction> ?patternPic . ?ex <http://purl.org/NET/exemplr#concernsForce> ?force . ?force <http://xmlns.com/foaf/0.1/depiction> ?forcePic . ?force <http://schema.org/name> ?forceTitle . ?ex <http://purl.org/NET/exemplr#hasTargetDetail> ?eXdetail . ?ex <http://purl.org/NET/exemplr#hasComment> ?eXcomment . ?ex <http://purl.org/NET/exemplr#creatorORCID> ?orcid . }";
+    var query = "SELECT DISTINCT ?ex ?pattern ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE { ?ex <http://purl.org/NET/exemplr#hasTargetURL> <"+urlToView+"> . ?ex <http://purl.org/NET/exemplr#concernsPattern> ?pattern . ?pattern <http://schema.org/name> ?patternTitle . ?pattern <http://xmlns.com/foaf/0.1/depiction> ?patternPic . ?ex <http://purl.org/NET/exemplr#concernsForce> ?force . ?force <http://xmlns.com/foaf/0.1/depiction> ?forcePic . ?force <http://schema.org/name> ?forceTitle . ?ex <http://purl.org/NET/exemplr#hasTargetDetail> ?eXdetail . ?ex <http://purl.org/NET/exemplr#hasComment> ?eXcomment . ?ex <http://purl.org/NET/exemplr#creatorORCID> ?orcid . }";
     //var query = "SELECT ?ex WHERE { ?ex <http://purl.org/NET/exemplr#creatorORCID> <http://orcid.org/0000-0002-9836-3824> . }";
     var sparql = encodeURIComponent(query);
 

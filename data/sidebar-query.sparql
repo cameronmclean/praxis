@@ -1,4 +1,4 @@
-SELECT DISTINCT ?ex ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE {
+SELECT DISTINCT ?ex ?pattern ?patternTitle ?patternPic ?forceTitle ?forcePic ?eXdetail ?eXcomment ?orcid WHERE {
 	?ex <http://purl.org/NET/exemplr#hasTargetURL> <https://peerj.com/articles/688/#p-6> .
 	?ex <http://purl.org/NET/exemplr#concernsPattern> ?pattern .
 	?pattern <http://schema.org/name> ?patternTitle .
